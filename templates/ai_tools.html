@@ -1,31 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Panel</title>
+    <title>AI Learning Assistant</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-6">
 
 <div class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow">
 
-<h2 class="text-xl font-bold mb-4">Admin Panel</h2>
+<h2 class="text-2xl font-bold mb-6">AI Learning Assistant</h2>
 
-<table class="w-full border">
-<tr class="bg-indigo-600 text-white">
-    <th class="p-2">User</th>
-    <th class="p-2">Subject</th>
-    <th class="p-2">Score</th>
-</tr>
+<form action="/explain_topic" method="POST" class="mb-4">
+    <input type="text" name="topic" placeholder="Enter topic"
+           class="w-full p-2 border rounded mb-2" required>
+    <button class="bg-indigo-600 text-white px-4 py-2 rounded">Explain</button>
+</form>
 
-{% for row in results %}
-<tr class="text-center border">
-    <td class="p-2">{{ row.username }}</td>
-    <td class="p-2">{{ row.subject }}</td>
-    <td class="p-2">{{ row.score }}</td>
-</tr>
-{% endfor %}
+{% if explanation %}
+<div class="bg-gray-100 p-4 rounded mb-4">
+    <p>{{ explanation }}</p>
+</div>
+{% endif %}
 
-</table>
+<form action="/summarize_notes" method="POST" class="mb-4">
+    <textarea name="notes" rows="4"
+              placeholder="Paste notes here"
+              class="w-full p-2 border rounded mb-2"></textarea>
+    <button class="bg-green-600 text-white px-4 py-2 rounded">Summarize</button>
+</form>
+
+{% if summary %}
+<div class="bg-gray-100 p-4 rounded mb-4">
+    <p>{{ summary }}</p>
+</div>
+{% endif %}
+
+<form action="/generate_flashcards" method="POST">
+    <input type="text" name="flash_topic"
+           placeholder="Flashcard topic"
+           class="w-full p-2 border rounded mb-2" required>
+    <button class="bg-purple-600 text-white px-4 py-2 rounded">Generate Flashcards</button>
+</form>
+
+{% if flashcards %}
+<div class="bg-gray-100 p-4 rounded mt-4">
+    <pre class="whitespace-pre-wrap">{{ flashcards }}</pre>
+</div>
+{% endif %}
 
 </div>
 
