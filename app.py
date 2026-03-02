@@ -101,8 +101,17 @@ def quiz():
         questions=question_bank[subject]
         session["quiz_subject"]=subject
         session["quiz_questions"]=questions
-        return render_template("quiz.html",subject=subject,questions=questions)
-    return render_template("quiz.html",subject=None)
+        return render_template(
+            "quiz.html",
+            subject=subject,
+            questions=questions,
+            question_bank=question_bank
+        )
+    return render_template(
+        "quiz.html",
+        subject=None,
+        question_bank=question_bank
+    )
 
 @app.route("/submit_quiz",methods=["POST"])
 def submit_quiz():
@@ -146,4 +155,5 @@ def generate_flashcards():
     return render_template("ai_tools.html",flashcards=result[0]['generated_text'])
 
 if __name__=="__main__":
+
     app.run(debug=True)
